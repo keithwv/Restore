@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +7,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")] // https://localhost:5001/api/products
     [ApiController]
-    public class ProductController(StoreContext context) : ControllerBase
+    public class ProductsController(StoreContext context) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
@@ -24,8 +20,7 @@ namespace API.Controllers
         {
             var product = await context.Products.FindAsync(id);
 
-            if (product == null)
-                return NotFound();
+            if (product == null) return NotFound();
 
             return product;
         }
