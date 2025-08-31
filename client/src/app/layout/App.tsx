@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react"
-import type { Product } from "../models/product";
-import Catalog from "../../features/catalog/Catalog";
+import { useState } from "react"
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavBar from "./NavBar";
+import { Outlet } from "react-router-dom";
 
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
   const [darkMode, setDarkMode] = useState(false);
 
   const palleteType = darkMode ? 'dark' : 'light';
@@ -24,28 +22,6 @@ function App() {
     setDarkMode(!darkMode);
   }
 
-  useEffect(() => {
-    fetch('https://localhost:5001/api/products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
-  }, [])
-
-  const addProduct = () => {
-    setProducts(prevState => [
-      ...prevState,
-      {
-        id: prevState.length + 1,
-        name: 'product' + (prevState.length + 1),
-        price: (prevState.length * 100) + 100,
-        quantityInStock: 100,
-        description: 'New product',
-        pictureUrl: 'https://picsum.photos/200',
-        type: 'Default',
-        brand: 'Default',
-      }
-    ]);
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -57,7 +33,7 @@ function App() {
           py: 6
         }}>
         <Container maxWidth="xl" sx={{ mt: 8 }}>
-          <Catalog products={products} addProduct={addProduct} />
+          <Outlet />
         </Container>
       </Box >
     </ThemeProvider>
