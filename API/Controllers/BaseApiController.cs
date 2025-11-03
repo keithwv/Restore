@@ -2,11 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class BaseApiController : Controller
 {
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }

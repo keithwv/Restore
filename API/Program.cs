@@ -1,5 +1,7 @@
 using API.Data;
 using API.Data.Migrations;
+using API.Middleware;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +13,14 @@ builder.Services.AddDbContext<StoreContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddCors();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseAuthorization();
+// app.UseDeveloperExceptionPage();
+// app.UseAuthorization();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(opt =>
 {

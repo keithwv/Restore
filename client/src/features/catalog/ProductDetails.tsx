@@ -5,7 +5,7 @@ import { useFetchProductDetailsQuery } from "./catalogApi"
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>()
 
-  const { data: product, isLoading } = useFetchProductDetailsQuery(id ? +id : 0)
+  const { data: product, isLoading } = useFetchProductDetailsQuery(id!)
 
 
   if (!product || isLoading) return <div>Loading...</div>
